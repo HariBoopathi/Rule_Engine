@@ -41,10 +41,12 @@ import {
 
 import { NumberOnlyDirective } from '../form-directive/number-only/number-only.directive';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { AppDatePipe } from '../../../common/pipes/app-date/app-date.pipe';
+// import { AppDatePipe } from '../../../common/pipes/app-date/app-date.pipe';
 import { CharacterOnlyDirective } from '../form-directive/character-only/character-only.directive';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppSettingsService } from '../../services/app-settings/app-settings.service';
+import { AppDatePipe } from '../../pipes/app-date/app-date.pipe';
+// import { AppSettingsService } from '../../services/app-settings/app-settings.service';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'dd-MM-yyyy HH:mm',

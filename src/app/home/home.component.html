@@ -1,1 +1,30 @@
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->
+<div class="v-flex h100">
+        <div class="col-md-3 p-3">
+            <app-input-control type="select" label="View" ></app-input-control>
+        </div>
+        <div class="div">
+            <div class="row">
+                <div class="col-md-4">
+                    <cdk-tree [dataSource]="vehicles" [treeControl]="treeControl">
+                        <cdk-nested-tree-node *cdkTreeNodeDef="let node" class="tree-node">
+                                <button mat-icon-button disabled></button>
+                                {{node.type}} 
+                            </cdk-nested-tree-node>
+                            <cdk-nested-tree-node *cdkTreeNodeDef="let node; when:hasChild" class="tree-node">
+                                <div class="center">
+                                    <button mat-icon-button cdkTreeNodeToggle>
+                                        <ion-icon name="{{treeControl.isExpanded(node) ? 'chevron-down-outline' : 'chevron-forward-outline'}}"></ion-icon>
+                                    </button>
+                                    {{node.type}}
+                                    <ion-icon name="add-outline" class="px-2"></ion-icon>
+                                </div>
+                            <div [class.tree-invisible]="!treeControl.isExpanded(node)">
+                                <ng-container cdkTreeNodeOutlet></ng-container>
+                            </div>
+                        </cdk-nested-tree-node>
+                    </cdk-tree>
+                </div>             
+            </div>
+        </div>
+</div>

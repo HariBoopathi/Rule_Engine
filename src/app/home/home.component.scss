@@ -1,0 +1,25 @@
+.tree-invisible{
+    display: none;
+}
+
+.tree-node {
+    display: block;
+}
+
+.tree-node .tree-node {
+    padding-left: 40px;
+}
+
+.center{
+    display: flex;
+    align-items: center;
+    // justify-content: center;
+}
+
+.px-2{
+    padding: 0 8px;
+}
+
+ion-icon:hover{
+    cursor: pointer;
+}

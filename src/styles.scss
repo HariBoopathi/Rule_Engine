@@ -1,4 +1,31 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'scss/theme.scss';
+@use 'scss/mat-dialog.scss';
+@use 'scss/app.scss';
+@use 'scss/mat-button.scss';
+// @use 'scss/login.scss';
+// @use 'scss/sidebar.scss';
+@use 'scss/mat-table.scss';
+@use 'scss/scroll.scss';
+@use 'scss/mat-tab.scss';
+@use 'scss/mat-expansion.scss';
+@use 'scss/alert.scss';
+@use 'scss/message-box.scss';
+@use 'scss/work-flow.scss';
+@use './scss/form/form-theme.scss';
+@use './scss/responsive-mixin';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.table-responsive .mat-mdc-table tr.mat-mdc-row .mat-mdc-cell {
+    .mat-mdc-icon-button {
+        --mdc-icon-button-icon-size:18px !important
+    }
+}
+
+*{
+    font-family: "Montserrat" !important;
+}
+
+html,body {
+    height: 100%
+}
