@@ -1,0 +1,96 @@
+.mat-mdc-raised-button {
+    display: inline-block;
+    min-width: 100px !important;
+    min-height: 36px !important;
+    line-height: 36px !important;
+    font-size: 14px !important;
+    background-color: #043B64 !important;
+    color: #ffffff !important;
+    border-radius: 2rem !important;
+    font-weight: 600 !important;
+    border: 1px solid #043B64 !important;
+
+    &[disabled] {
+        opacity: 0.6 !important;
+    }
+}
+
+.mat-mdc-button {
+    display: inline-flex;
+    align-items: center;
+    min-width: 100px !important;
+    min-height: 36px !important;
+    line-height: 36px !important;
+    font-size: 14px !important;
+    background: #ffffff !important;
+    border-radius: 2rem !important;
+    font-weight: 600;
+    color: #023962 !important;
+    border: 1px solid #819CB1 !important;
+
+    &[disabled] {
+        opacity: 0.6 !important;
+    }
+
+    .mdc-button__label {
+        display: flex;
+        align-items: center;
+
+        .button-icon {
+            display: flex;
+            align-items: center;
+            font-size: 12px !important;
+            margin-left: 0.75rem;
+            color: red;
+        }
+    }
+}
+
+.mdc-icon-button {
+    width: 40px !important;
+    height: 40px !important;
+    padding: 6px !important;
+
+    .mat-mdc-button-touch-target {
+        width: 40px !important;
+        height: 40px !important;
+    }
+}
+
+.mat-mdc-slide-toggle {
+    // background: #0A9E50;
+
+    .mdc-form-field {
+
+        .mdc-switch {
+
+            &[aria-checked="true"] {
+
+                .mdc-switch__track {
+
+                    &::after {
+                        background: #0A9E50 !important;
+                    }
+                }
+
+                .mdc-switch__handle-track {
+
+                    .mdc-switch__handle {
+
+                        &::after {
+                            background: #0A9E50 !important;
+                        }
+                    }
+                }
+
+            }
+        }
+
+        label {
+            padding-bottom: 0 !important;
+        }
+    }
+     
+
+    
+}

@@ -1,0 +1,22 @@
+<div class="alert-container">
+    <div class="alert-header-info">
+        <div class="alert-title">
+            Alert
+        </div>
+    </div>
+    <div class="alert-content">
+        <p class="alert-description">
+            {{msg}}
+        </p>
+    </div>
+    <div class="alert-footer">
+        <div class="alert-buttons">
+            <button mat-raised-button class="" (click)="delete('false')">
+                Cancel
+            </button>
+            <button mat-raised-button class="ml-2" (click)="delete('true')">
+                Ok
+            </button>
+        </div>
+    </div>
+</div>

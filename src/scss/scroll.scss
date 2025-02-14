@@ -1,0 +1,61 @@
+::-webkit-scrollbar {
+    width: 6px;
+    height: 10px;
+    border-top-right-radius: 50%;
+}
+
+::-webkit-scrollbar-track {
+    background: #DFF0FD;
+    width: 6px;
+    height: 10px;
+    background-clip: content-box;
+    box-sizing: border-box;
+    // border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #023962;
+    // border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #023962;
+    // opacity: 1;
+}
+::-webkit-scrollbar-thumb:active {
+    background-color: var(--bs-primary);
+    // opacity: 1;
+}
+::-webkit-scrollbar:horizontal{
+    width: 10px;
+    height: 8px;
+}
+::-webkit-scrollbar-track:horizontal{
+    height:8px;
+    border-top: 2px solid transparent;
+    border-bottom: 2px solid transparent;
+}
+
+
+
+// div::-webkit-scrollbar{
+//     width:7px;
+//     height:7px;
+//   }
+//   div::-webkit-scrollbar-track {
+//     border-radius: 3px;
+//     background: rgba(0, 0, 0, 0.1);
+//   }
+//   div::-webkit-scrollbar-thumb {
+//     border-radius: 3px;
+//     background: rgba(0, 0, 0, 0.2);
+//     // background: #ffbe7bff;
+//   }
+//   div::-webkit-scrollbar-thumb:hover {
+//     // background: rgba(0, 0, 0, 0.4);
+//     background: #f6a325;
+//   }
+//   div::-webkit-scrollbar-thumb:active {
+//     // background: rgba(0, 0, 0, 0.7);
+//     background: #f6a325;
+//   }

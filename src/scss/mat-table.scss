@@ -1,0 +1,98 @@
+.table-responsive {
+    position: relative;
+    height: 100% !important;
+    width: 100% !important;
+    z-index: 2;
+
+    .table-card {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        border-radius: 0.9375rem;
+        overflow: auto;
+        overflow-x: hidden;
+        background: #ffffff;
+    }
+
+    .mat-mdc-table {
+        position: relative;
+        width: 100%;
+        z-index: 90;
+        border-radius: 0.9375rem;
+        border-collapse: collapse;
+        font-family: 'Montserrat', sans-serif !important;
+
+
+
+        tr.mat-mdc-header-row {
+            background: #DBDBDB;
+            background-color: #F4FEFF;
+            position: sticky;
+            top: 0;
+            z-index: 222;
+            // border-bottom: 1px solid #DFDFDF;
+
+
+            .mat-mdc-header-cell {
+                // border-bottom-width: 0 !important;
+                font-size: 13px;
+                color: #676767;
+                font-weight: 500;
+                padding: 0 1rem !important;
+            }
+        }
+
+        tr.mat-mdc-row {
+            position: relative;
+
+            &:nth-child(even) {
+                background: #F8F8F8;
+            }
+
+
+            .mat-mdc-cell {
+                font-size: 12px !important;
+                border-bottom-width: 0 !important;
+                color: #484848;
+                padding: 0 1rem !important;
+            }
+        }
+
+        tr.mat-mdc-title-row {
+            height: 40px !important;
+            background: #DFF0FD;
+
+            .mat-mdc-title-cell {
+                font-size: 12px;
+                color: #000000;
+                font-weight: 500;
+                padding: 0 1rem;
+            }
+        }
+
+
+
+    }
+}
+
+tr.mat-mdc-header-row,
+tr.mat-mdc-row {
+    height: 40px !important;
+}
+
+.table-nav-link {
+    cursor: pointer;
+    color: #0060B8 !important;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.mat-expansion-table {
+  display: block;
+  height: 75vh;
+}

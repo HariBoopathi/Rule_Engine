@@ -1,0 +1,300 @@
+.home-banner {
+    padding: 0.5rem;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    background: #DBDBDB;
+    position: relative;
+
+    .home-content-banner {
+        flex: 1;
+        position: relative;
+        padding-left: 60px;
+
+        .header {
+            width: 100%;
+            height: 48px;
+        }
+    }
+}
+
+.sidebar {
+    position: fixed;
+    padding-bottom: 0.825rem;
+    height: 100%;
+    width: 50px;
+    box-sizing: border-box;
+    transition: 0.4s all ease-in-out;
+    z-index: 2;
+
+    &:hover {
+        width: 280px;
+
+        .sidebar-header {
+
+            .sidebar-company-profile {
+
+                .sidebar-company-name {
+                    display: block !important;
+                }
+            }
+
+        }
+
+        .sidebar-footer {
+
+            .sidebar-company-profile {
+
+                .sidebar-company-name {
+                    display: block !important;
+                }
+            }
+        }
+
+        .sidebar-menu-header {
+            width: 100% !important;
+        }
+
+        .sidebar-menu-banner {
+
+            .mat-expansion-panel-body {
+                display: block !important;
+            }
+        }
+
+    }
+
+    .sidebar-banner {
+        width: 100%;
+        height: 100%;
+        background: #063B5E;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        border-radius: 0.9375rem;
+        overflow: hidden;
+
+
+        .sidebar-flex {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+
+            .sidebar-header {
+                width: 100%;
+
+                .sidebar-company-profile {
+                    display: flex;
+                    align-items: center;
+                    flex-direction: row;
+                    width: 100%;
+
+                    .sidebar-profile-rel {
+                        display: block;
+                        width: 60px;
+                        height: 30px;
+                        position: relative;
+                        overflow: auto;
+                        z-index: 2;
+
+                        .sidebar-profile-img {
+                            margin: 0 auto;
+                            width: 30px;
+                            height: 30px;
+                            overflow: hidden;
+                            border-radius: 50%;
+
+                            img {
+                                height: 100%;
+                                width: 100%;
+                                object-fit: cover;
+                            }
+                        }
+
+
+                    }
+
+                    .sidebar-company-name {
+                        display: none;
+                        flex: 1;
+                        font-size: 16px;
+                        color: #ffffff;
+                        font-weight: 500;
+                        overflow: hidden;
+                        white-space: nowrap;
+                    }
+                }
+            }
+
+            .sidebar-content {
+                flex: 1;
+                position: relative;
+
+                .rel {
+                    overflow-x: hidden;
+
+                    .sidebar-menu-banner {
+                        background: transparent;
+
+
+                        .sidebar-menu-item {
+                            margin: 0.25rem 0 !important;
+
+                            .sidebar-menu-header {
+                                display: flex !important;
+                                width: 55px;
+                                background: transparent !important;
+                                box-shadow: none !important;
+                                border-radius: 0 !important;
+                                border-bottom: none !important;
+                                padding: 0 0.5rem !important;
+
+                                .mat-content {
+
+                                    .mat-expansion-panel-header-title {
+                                        margin: 0 10px !important;
+                                    }
+                                }
+
+                                .mat-expansion-indicator {
+
+                                    &::after {
+                                        display: none !important;
+                                    }
+                                }
+
+                                .sidebar-menu-button {
+                                    display: flex;
+                                    align-items: center;
+
+                                    .sidebar-menu-icon {
+                                        display: flex;
+                                        align-items: center;
+                                        font-size: 16px;
+                                        color: #ffffff !important;
+
+                                        ion-icon {
+                                            color: #ffffff !important;
+                                        }
+                                    }
+
+                                    .sidebar-menu-name {
+                                        display: flex;
+                                        align-items: center;
+                                        margin-left: 1rem;
+                                        font-size: 14px;
+                                        color: #ffffff;
+                                        font-weight: 400;
+                                    }
+                                }
+                            }
+
+                            &.mat-expanded,
+                            .mat-expansion-panel-spacing {
+                                // margin: 0 !important;
+                            }
+                        }
+
+                        .mat-expansion-panel-body {
+                            display: none;
+                            border-radius: 0 !important;
+                            background: transparent !important;
+
+                            .sidebar-submenu-content {
+                                padding: 0 2rem !important;
+                                margin: 0 !important;
+                                list-style-type: none !important;
+
+                                .sidebar-submenu-item {
+                                    display: block;
+                                    height: 40px !important;
+                                    border-radius: 0.5rem !important;
+                                    padding: 0 0.5rem;
+                                    cursor: pointer;
+
+                                    .sidebar-submenu-button {
+                                        white-space: nowrap;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                        display: inline-block;
+                                        min-height: 40px !important;
+                                        line-height: 40px !important;
+                                        text-align: center;
+                                        color: #ffffff !important;
+                                        font-size: 12px !important;
+                                        font-weight: 400;
+                                    }
+                                }
+                            }
+                        }
+
+
+                    }
+
+                }
+            }
+
+            .sidebar-footer {
+                width: 100%;
+
+                .sidebar-company-profile {
+                    display: flex;
+                    align-items: center;
+                    flex-direction: row;
+                    width: 100%;
+
+                    .sidebar-profile-rel {
+                        display: block;
+                        width: 60px;
+                        height: 30px;
+                        position: relative;
+                        overflow: auto;
+                        z-index: 2;
+
+                        .sidebar-profile-img {
+                            margin: 0 auto;
+                            width: 30px;
+                            height: 30px;
+                            overflow: hidden;
+                            border-radius: 50%;
+
+                            img {
+                                height: 100%;
+                                width: 100%;
+                                object-fit: cover;
+                            }
+                        }
+
+
+                    }
+
+                    .sidebar-company-name {
+                        display: none;
+                        flex: 1;
+                        font-size: 14px;
+                        color: #ffffff;
+                        font-weight: 500;
+                        overflow: hidden;
+                        white-space: nowrap;
+
+                        small {
+                            font-weight: 12px;
+                            font-weight: 400;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes dropDown {
+    from {
+        height: 0 !important;
+    }
+
+    to {
+        display: block;
+        height: auto !important;
+    }
+}

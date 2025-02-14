@@ -1,0 +1,63 @@
+.mat-accordion {
+    background: transparent !important;
+
+
+    .mat-expansion-panel {
+        border-radius: 0.65rem !important;
+        box-shadow: none !important;
+        background: transparent !important;
+        margin: 0.5rem 0;
+
+        .mat-expansion-panel-header {
+            height: 48px !important;
+            border-radius: 0.7rem !important;
+            box-shadow: none !important;
+            border-bottom: 2px solid #ABC3D0;
+            background: #F4FEFF !important;
+
+            .mat-expansion-panel-header-title {
+                color: #1A4D72;
+                font-weight: 600;
+            }
+
+            &:hover {
+                background: #F4FEFF !important;
+            }
+        }
+
+        .mat-expansion-panel-content {
+            background: transparent !important;
+
+            .mat-expansion-panel-body {
+                padding: 0 !important;
+                margin: 0 1rem;
+                border-bottom-left-radius: 0.75rem;
+                border-bottom-right-radius: 0.75rem;
+                background: #F7F7F7 !important;
+
+                .tab-banner {
+
+                    .tab-flex {
+
+                        .tab-flex-banner {
+
+                            .tab-flex-container {
+                                margin-left: 0 !important;
+                                padding: 1rem 2rem !important;
+                                background: transparent !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.mat-expansion-panel-spacing {
+  margin: 0.5rem 0 !important;
+}
+
+.mat-expansion-panel-no-spacing {
+  margin: 0 !important;
+}
