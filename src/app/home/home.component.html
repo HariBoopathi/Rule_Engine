@@ -1,30 +1,87 @@
 <!-- <router-outlet></router-outlet> -->
 <div class="v-flex h100">
-        <div class="col-md-3 p-3">
-            <app-input-control type="select" label="View" ></app-input-control>
-        </div>
-        <div class="div">
-            <div class="row">
-                <div class="col-md-4">
+    <div class="div">
+        <div class="row">
+            <div class="col-md-4">
+                @if(!loadSpinner){
                     <cdk-tree [dataSource]="vehicles" [treeControl]="treeControl">
                         <cdk-nested-tree-node *cdkTreeNodeDef="let node" class="tree-node">
-                                <button mat-icon-button disabled></button>
-                                {{node.type}} 
-                            </cdk-nested-tree-node>
-                            <cdk-nested-tree-node *cdkTreeNodeDef="let node; when:hasChild" class="tree-node">
-                                <div class="center">
-                                    <button mat-icon-button cdkTreeNodeToggle>
-                                        <ion-icon name="{{treeControl.isExpanded(node) ? 'chevron-down-outline' : 'chevron-forward-outline'}}"></ion-icon>
-                                    </button>
-                                    {{node.type}}
-                                    <ion-icon name="add-outline" class="px-2"></ion-icon>
-                                </div>
+                            <button mat-icon-button disabled></button>
+                            {{node.name}}
+                        </cdk-nested-tree-node>
+                        <cdk-nested-tree-node *cdkTreeNodeDef="let node; when:hasChild" class="tree-node">
+                            <div class="center">
+                                <button mat-icon-button cdkTreeNodeToggle>
+                                    <ion-icon
+                                        name="{{treeControl.isExpanded(node) ? 'chevron-down-outline' : 'chevron-forward-outline'}}"></ion-icon>
+                                </button>
+                                {{node.name}}
+                                <ion-icon name="add-outline" class="px-2" (click)="addRule(node)"></ion-icon>
+                            </div>
                             <div [class.tree-invisible]="!treeControl.isExpanded(node)">
                                 <ng-container cdkTreeNodeOutlet></ng-container>
                             </div>
                         </cdk-nested-tree-node>
                     </cdk-tree>
-                </div>             
+                }@else{
+                    <app-spinner></app-spinner>
+                }
             </div>
         </div>
+    </div>
 </div>
+
+<ng-template #addRuleSet>
+    <div class="v-flex h100 p-3">
+        <div class="between">
+            <div>Add Rule</div>
+            <div (click)="doSlideClose()">
+                <ion-icon name="close-circle-outline"></ion-icon>
+            </div>
+        </div>
+        <!-- {{getData.rules.length}} -->
+        <div class="row w100 m-0">
+            <div class="col-md-12">
+                <app-input-control type="select" [items]="value" label="type" [(ngModel)]="typeObj" key="code"
+                    keyName="description" name="typeObj"></app-input-control>
+            </div>
+            <div class="col-md-6">
+                <app-input-control label="Name" [(ngModel)]="itgRule.name" name="name"></app-input-control>
+            </div>
+            <div class="col-md-6">
+                <app-input-control label="status" [(ngModel)]="itgRule.status" name="status"></app-input-control>
+            </div>
+            <div class="col-md-6">
+                <app-input-control label="description" [(ngMode)]="itgRule.description" name="description"></app-input-control>
+            </div>
+            <div class="col-md-6">
+                <app-input-control label="application" [(ngMode)]="itgRule.application" name="application"></app-input-control>
+            </div>
+            <div class="col-md-6">
+                <app-input-control label="module" [(ngModel)]="itgRule.module" name="module"></app-input-control>
+            </div>
+            <div class="col-md-6">
+                <app-input-control label="enabled" [(ngModel)]="itgRule.enabled" name="enabled"></app-input-control>
+            </div>
+            @if(typeObj === 'ASRUL'){
+            <div class="col-md-6">
+                <app-input-control label="expression"></app-input-control>
+            </div>
+            } @else if (typeObj === 'SHRUL') {
+            <div class="col-md-6">
+                <app-input-control label="nameSpace"></app-input-control>
+            </div>
+            <div class="col-md-6">
+                <app-input-control label="code"></app-input-control>
+            </div>
+            }
+        </div>
+        <button class="primary-button mb-3" mat-raised-button (click)="saveRuleSet()" >
+            Save
+      </button>
+      <a class="secondary-button " mat-button>
+        Clear
+    </a>
+    </div>
+    <!-- {{getData |json}} -->
+</ng-template>

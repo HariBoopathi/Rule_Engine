@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, TemplateRef, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { InputControlComponent } from '../common/form-input/input-control/input-control.component';
 import { ArrayDataSource } from '@angular/cdk/collections';
@@ -6,16 +6,21 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {  CdkTreeModule, NestedTreeControl } from '@angular/cdk/tree';
+import { SlideDialogService } from '../common/slide-dialog/slide-dialog.service';
+import { DataService } from '../common/services/data/data.service';
+import { ITGRule, ValidationRule } from '../common/api-services/application-api/application-api.classes';
+import { FormsModule } from '@angular/forms';
+import { SpinnerComponent } from '../common/full-spinner/full-spinner.component';
 
 @Component({
   selector: 'app-home',
-  imports: [InputControlComponent,CdkTreeModule,MatIconModule,MatButtonModule,CommonModule],
+  imports: [InputControlComponent,CdkTreeModule,MatIconModule,MatButtonModule,CommonModule, FormsModule,SpinnerComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomeComponent {
-
+  parentData:any
 
   public vehicles = new ArrayDataSource<any>([
     {
@@ -23,6 +28,7 @@ export class HomeComponent {
       "rules": [
         {
           "type": "ITGRuleSet",
+
           "rules": [
             {
               "type": "ValidationRule",
@@ -429,7 +435,107 @@ export class HomeComponent {
   
   ]);
 
+  
+    @ViewChild('addRuleSet', { static: false })
+    addRuleSet!: TemplateRef<any>;
+
   treeControl = new NestedTreeControl<any>((node: any) => node.rules || node.successRules);
   hasChild = (_: number, node: any) => (!!node.rules && node.rules.length > 0) || (!!node.successRules && node.successRules.length > 0);
+
+  value = [
+        {
+          "description": "AssignMent Rule",
+          "code": "ASRUL",
+        },
+        {
+          "description": "CS Share Rule",
+          "code": "SHRUL",
+        },
+        {
+          "description": "ITG Rule",
+          "code": "ITGRU",
+        },
+        {
+          "description": "IFElse Rule",
+          "code": "IFRUL",
+        },
+        {
+          "description": "Reference Rule",
+          "code": "RERUL",
+        },
+        {
+          "description": "Validation Rule",
+          "code": "ASRUL",
+        },
+
+  ]
+
+  typeObj = ''
+
+  constructor (
+    public slideDialog : SlideDialogService,
+    public data : DataService
+  ){
+
+  }
+
+  getData:any;
+  itgRule = new ValidationRule();
+  itgRuleRaw = new ValidationRule();
+  // ifRule = new 
+
+  addRule(val:any){
+    this.vehicles.connect().subscribe(data => {
+      this.parentData = data
+      console.log(data, val);
+      
+    });
+    // const parentIndex = this.vehicles.data.findIndex((node: any) => node.id === this.getData.id);
+// console.log(parentIndex);
+    this.getData = val
+    this.itgRule = {...this.itgRuleRaw}
+    console.log(this.itgRule);
+    
+    this.data.slideDialogRef = this.slideDialog.open({
+      data: {
+        template: this.addRuleSet,
+      },
+    });
+  }
+
+  doSlideClose() {
+    this.data.slideDialogRef?.close();
+  }
+
+  loadSpinner = false
+
+  saveRuleSet(){      
+    this.loadSpinner = true;
+    debugger
+      if( this.getData.type === 'IFElseRule'){
+        this.getData.successRules.push(this.itgRule);
+      } else {
+          this.getData.rules.push(this.itgRule);
+        }
+        console.log(this.getData)
+        debugger
+
+        setTimeout(()=>{
+          this.parentData[0].rules.forEach((element:any) => {
+            if(element.id === this.getData.id ){
+              element = this.getData
+            }
+         });
+         this.vehicles.connect().subscribe(data => {
+           this.vehicles = new ArrayDataSource<any>(data);
+         });
+         this.loadSpinner = false
+ 
+        }, 3000)
+       
+    console.log(this.vehicles)
+
+  }
+
 
 }

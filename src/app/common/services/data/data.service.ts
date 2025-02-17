@@ -8,6 +8,7 @@ import { AlertComponent } from '../../alert/alert/alert.component';
 import { StorageService } from '../storage/storage.service';
 import { AppSettingsService } from '../app-settings/app-settings.service';
 import { MessageBoxService } from '../../message-box/message-box.service';
+import { SlideDialogOverlayRef } from '../../slide-dialog/slide-dialog-overlay';
 // import { AppMessage } from '../../api-services/admin-api/admin-api.classes';
 
 @Injectable({
@@ -27,6 +28,7 @@ export class DataService {
   message:any
   messageBoxExpandTrue = false;
   selectedInputId = '';
+  slideDialogRef!: SlideDialogOverlayRef;
 
   constructor(
     public storage: StorageService,

@@ -7,6 +7,7 @@ import {
 } from "@angular/animations";
 import {
   Component,
+  CUSTOM_ELEMENTS_SCHEMA,
   EventEmitter,
   Inject,
   OnInit,
@@ -14,11 +15,17 @@ import {
 } from "@angular/core";
 import { SLIDE_DIALOG_DATA } from "./slide-dialog-interface";
 import { SlideDialogOverlayRef } from "./slide-dialog-overlay";
+import { OverlayModule } from "@angular/cdk/overlay";
+import { PortalModule } from "@angular/cdk/portal";
+import { CommonModule } from "@angular/common";
 const ANIMATION_TIMINGS = "400ms cubic-bezier(0.25, 0.8, 0.25, 1)";
 @Component({
   selector: "app-slide-dialog",
   templateUrl: "./slide-dialog.component.html",
   styleUrls: ["./slide-dialog.component.scss"],
+  imports:[CommonModule, PortalModule,OverlayModule],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
+  standalone:true,
   animations: [
     trigger("slideContent", [
       state(

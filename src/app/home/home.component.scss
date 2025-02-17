@@ -23,3 +23,9 @@
 ion-icon:hover{
     cursor: pointer;
 }
+
+.between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }

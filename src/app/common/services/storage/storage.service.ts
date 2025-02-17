@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AppSettingsService } from '../app-settings/app-settings.service';
-import * as CryptoJS from 'crypto-js';
+import CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root',
