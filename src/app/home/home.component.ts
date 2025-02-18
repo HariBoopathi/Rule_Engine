@@ -10,14 +10,15 @@ import { SlideDialogService } from '../common/slide-dialog/slide-dialog.service'
 import { DataService } from '../common/services/data/data.service';
 import { ITGRule, ValidationRule } from '../common/api-services/application-api/application-api.classes';
 import { FormsModule } from '@angular/forms';
-import { SpinnerComponent } from '../common/full-spinner/full-spinner.component';
+import { XSpinnerComponent } from "../common/load-spinner/spinner.component";
 
 @Component({
   selector: 'app-home',
-  imports: [InputControlComponent,CdkTreeModule,MatIconModule,MatButtonModule,CommonModule, FormsModule,SpinnerComponent],
+  imports: [InputControlComponent, CdkTreeModule, MatIconModule, MatButtonModule, CommonModule, FormsModule, XSpinnerComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
-  schemas:[CUSTOM_ELEMENTS_SCHEMA]
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
+  
 })
 export class HomeComponent {
   parentData:any
@@ -485,17 +486,13 @@ export class HomeComponent {
   // ifRule = new 
 
   addRule(val:any){
+    debugger
+    console.log(val)
     this.vehicles.connect().subscribe(data => {
       this.parentData = data
-      console.log(data, val);
-      
-    });
-    // const parentIndex = this.vehicles.data.findIndex((node: any) => node.id === this.getData.id);
-// console.log(parentIndex);
+    }); 
     this.getData = val
-    this.itgRule = {...this.itgRuleRaw}
-    console.log(this.itgRule);
-    
+    this.itgRule = {...this.itgRuleRaw}    
     this.data.slideDialogRef = this.slideDialog.open({
       data: {
         template: this.addRuleSet,
@@ -517,9 +514,6 @@ export class HomeComponent {
       } else {
           this.getData.rules.push(this.itgRule);
         }
-        console.log(this.getData)
-        debugger
-
         setTimeout(()=>{
           this.parentData[0].rules.forEach((element:any) => {
             if(element.id === this.getData.id ){
@@ -529,9 +523,9 @@ export class HomeComponent {
          this.vehicles.connect().subscribe(data => {
            this.vehicles = new ArrayDataSource<any>(data);
          });
-         this.loadSpinner = false
- 
-        }, 3000)
+         this.loadSpinner = false 
+        }, 1500)
+        this.doSlideClose()
        
     console.log(this.vehicles)
 

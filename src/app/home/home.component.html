@@ -1,46 +1,63 @@
 <!-- <router-outlet></router-outlet> -->
-<div class="v-flex h100">
-    <div class="div">
-        <div class="row">
-            <div class="col-md-4">
-                @if(!loadSpinner){
-                    <cdk-tree [dataSource]="vehicles" [treeControl]="treeControl">
-                        <cdk-nested-tree-node *cdkTreeNodeDef="let node" class="tree-node">
-                            <button mat-icon-button disabled></button>
-                            {{node.name}}
-                        </cdk-nested-tree-node>
-                        <cdk-nested-tree-node *cdkTreeNodeDef="let node; when:hasChild" class="tree-node">
-                            <div class="center">
-                                <button mat-icon-button cdkTreeNodeToggle>
-                                    <ion-icon
-                                        name="{{treeControl.isExpanded(node) ? 'chevron-down-outline' : 'chevron-forward-outline'}}"></ion-icon>
-                                </button>
-                                {{node.name}}
-                                <ion-icon name="add-outline" class="px-2" (click)="addRule(node)"></ion-icon>
-                            </div>
-                            <div [class.tree-invisible]="!treeControl.isExpanded(node)">
-                                <ng-container cdkTreeNodeOutlet></ng-container>
-                            </div>
-                        </cdk-nested-tree-node>
-                    </cdk-tree>
-                }@else{
-                    <app-spinner></app-spinner>
-                }
+@if(!loadSpinner){
+<div class="v-flex h100 p-3">
+    <div class="center-1 f21w600">Rule Engine</div>
+    <div class="flex-1">
+        <div class="row h100 m-0">
+            <div class="col-md-4 py-2 card h100">
+                <div class="flex-1 relative h100">
+                    <div class="ab">
+                        <div class="rel">
+                            <cdk-tree [dataSource]="vehicles" [treeControl]="treeControl">
+                                <cdk-nested-tree-node *cdkTreeNodeDef="let node" class="tree-node">
+                                    <div class="f14w600">
+                                        <div class="text-start pt-3 px-2">
+                                            {{node.name}}
+                                        </div>
+                                    </div>
+                                </cdk-nested-tree-node>
+                                <cdk-nested-tree-node *cdkTreeNodeDef="let node; when:hasChild" class="tree-node pt-2">
+                                    <div class="d-flex align-items-center color-pal tree-content">
+                                        <button mat-icon-button cdkTreeNodeToggle>
+                                            <ion-icon
+                                                name="{{treeControl.isExpanded(node) ? 'remove-circle-outline' : 'add-circle-outline'}}"></ion-icon>
+                                        </button>
+                                        <div class="w100">
+                                            {{node.name}}
+                                        </div>
+                                        <div class="end w100">
+                                            <button mat-icon-button  (click)="addRule(node)">
+                                            <ion-icon mat-icon-button name="add-outline"
+                                               ></ion-icon>
+                                                </button>
+                                        </div>
+                                    </div>
+                                    <div class="branch-container" [class.tree-invisible]="!treeControl.isExpanded(node)">
+                                        <ng-container cdkTreeNodeOutlet></ng-container>
+                                    </div>
+                                </cdk-nested-tree-node>
+                            </cdk-tree>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
+}@else{
+<div class="center-1 h100">
+    <spinner></spinner>
+</div>
+}
 <ng-template #addRuleSet>
-    <div class="v-flex h100 p-3">
-        <div class="between">
+    <div class="v-flex h100 ">
+        <div class="header-title border-bottom">
             <div>Add Rule</div>
             <div (click)="doSlideClose()">
                 <ion-icon name="close-circle-outline"></ion-icon>
             </div>
         </div>
-        <!-- {{getData.rules.length}} -->
-        <div class="row w100 m-0">
+        <div class="row w100 m-0 p-2">
             <div class="col-md-12">
                 <app-input-control type="select" [items]="value" label="type" [(ngModel)]="typeObj" key="code"
                     keyName="description" name="typeObj"></app-input-control>
@@ -52,10 +69,12 @@
                 <app-input-control label="status" [(ngModel)]="itgRule.status" name="status"></app-input-control>
             </div>
             <div class="col-md-6">
-                <app-input-control label="description" [(ngMode)]="itgRule.description" name="description"></app-input-control>
+                <app-input-control label="description" [(ngMode)]="itgRule.description"
+                    name="description"></app-input-control>
             </div>
             <div class="col-md-6">
-                <app-input-control label="application" [(ngMode)]="itgRule.application" name="application"></app-input-control>
+                <app-input-control label="application" [(ngMode)]="itgRule.application"
+                    name="application"></app-input-control>
             </div>
             <div class="col-md-6">
                 <app-input-control label="module" [(ngModel)]="itgRule.module" name="module"></app-input-control>
@@ -75,13 +94,12 @@
                 <app-input-control label="code"></app-input-control>
             </div>
             }
+            <button class="primary-button mb-3" mat-raised-button (click)="saveRuleSet()">
+                Save
+            </button>
+            <a class="secondary-button " mat-button>
+                Clear
+            </a>
         </div>
-        <button class="primary-button mb-3" mat-raised-button (click)="saveRuleSet()" >
-            Save
-      </button>
-      <a class="secondary-button " mat-button>
-        Clear
-    </a>
     </div>
-    <!-- {{getData |json}} -->
 </ng-template>
