@@ -35,8 +35,8 @@ import { Component } from '@angular/core';
   </div>`,
   styles: [`
   .spinner {
-    width:180px;
-    height:180px;
+    width:80px;
+    height:80px;
     animation: iosIntro 0.6s;
     svg {
         fill: #3498db;

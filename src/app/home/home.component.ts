@@ -8,7 +8,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {  CdkTreeModule, NestedTreeControl } from '@angular/cdk/tree';
 import { SlideDialogService } from '../common/slide-dialog/slide-dialog.service';
 import { DataService } from '../common/services/data/data.service';
-import { ITGRule, ValidationRule } from '../common/api-services/application-api/application-api.classes';
+import { AssignmentRule, CSharpCodeRule, ITGRule, ITGRuleSet, ReferenceRule, ValidationRule } from '../common/api-services/application-api/application-api.classes';
 import { FormsModule } from '@angular/forms';
 import { XSpinnerComponent } from "../common/load-spinner/spinner.component";
 
@@ -23,7 +23,7 @@ import { XSpinnerComponent } from "../common/load-spinner/spinner.component";
 export class HomeComponent {
   parentData:any
 
-  public vehicles = new ArrayDataSource<any>([
+  public ruleSets = new ArrayDataSource<any>([
     {
       "type": "ITGRuleSet",
       "rules": [
@@ -446,58 +446,67 @@ export class HomeComponent {
   value = [
         {
           "description": "AssignMent Rule",
-          "code": "ASRUL",
+          "code": "AssignmentRule",
         },
         {
           "description": "CS Share Rule",
-          "code": "SHRUL",
+          "code": "CSharpCodeRule",
         },
         {
           "description": "ITG Rule",
-          "code": "ITGRU",
-        },
-        {
-          "description": "IFElse Rule",
-          "code": "IFRUL",
-        },
+          "code": "ITGRuleSet",
+        },       
         {
           "description": "Reference Rule",
-          "code": "RERUL",
+          "code": "ReferenceRule",
         },
         {
           "description": "Validation Rule",
-          "code": "ASRUL",
+          "code": "ValidationRule",
         },
 
   ]
 
-  typeObj = ''
 
   constructor (
     public slideDialog : SlideDialogService,
     public data : DataService
   ){
-
+    this.getTypeProperty()
   }
+  
 
   getData:any;
-  itgRule = new ValidationRule();
-  itgRuleRaw = new ValidationRule();
-  // ifRule = new 
+  itgRule:any;
+  itgRuleRaw = new ITGRule();
+  typeObj = '';
+  ruleMap:any = {}
+
+  getTypeProperty(val?:any){
+    this.ruleMap = {
+      'AssignmentRule': AssignmentRule,
+      'CSharpCodeRule': CSharpCodeRule,
+      'ITGRuleSet': ITGRuleSet,
+      'ReferenceRule': ReferenceRule,
+      'ValidationRule': ValidationRule
+    };
+
+    this.itgRule = this.ruleMap[val] ? new this.ruleMap[val]() : new ITGRule();
+    this.itgRuleRaw = this.ruleMap[val] ? new this.ruleMap[val]() : new ITGRule();
+    
+  }
 
   addRule(val:any){
-    debugger
-    console.log(val)
-    this.vehicles.connect().subscribe(data => {
+    this.ruleSets.connect().subscribe(data => {
       this.parentData = data
     }); 
     this.getData = val
     this.itgRule = {...this.itgRuleRaw}    
-    this.data.slideDialogRef = this.slideDialog.open({
-      data: {
-        template: this.addRuleSet,
-      },
-    });
+    // this.data.slideDialogRef = this.slideDialog.open({
+    //   data: {
+    //     template: this.addRuleSet,
+    //   },
+    // });
   }
 
   doSlideClose() {
@@ -508,7 +517,6 @@ export class HomeComponent {
 
   saveRuleSet(){      
     this.loadSpinner = true;
-    debugger
       if( this.getData.type === 'IFElseRule'){
         this.getData.successRules.push(this.itgRule);
       } else {
@@ -520,15 +528,17 @@ export class HomeComponent {
               element = this.getData
             }
          });
-         this.vehicles.connect().subscribe(data => {
-           this.vehicles = new ArrayDataSource<any>(data);
+         this.ruleSets.connect().subscribe(data => {
+           this.ruleSets = new ArrayDataSource<any>(data);
          });
          this.loadSpinner = false 
         }, 1500)
         this.doSlideClose()
-       
-    console.log(this.vehicles)
+  }
 
+  openRule(val:any){
+    this.itgRule = val
+    console.log(val)
   }
 
 

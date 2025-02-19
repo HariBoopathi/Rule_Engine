@@ -29,13 +29,17 @@ ion-icon:hover{
     cursor: pointer;
 }
 
+.hover{
+  cursor: pointer;
+  &:hover{
+    text-decoration: underline;
+  }
+}
+
 .between {
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
-  .card{
-    // box-shadow: -9px -8px 7px 4px #ccc;
   }
 
   .ab {
@@ -148,5 +152,10 @@ ion-icon:hover{
   
   .branch-container {
     padding-left: 10px;
+  }
+
+  .f16w600{
+    font-size: 16px;
+    font-weight: 600;
   }
   

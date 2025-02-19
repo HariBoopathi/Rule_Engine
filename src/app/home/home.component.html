@@ -1,54 +1,130 @@
 <!-- <router-outlet></router-outlet> -->
-@if(!loadSpinner){
 <div class="v-flex h100 p-3">
     <div class="center-1 f21w600">Rule Engine</div>
     <div class="flex-1">
-        <div class="row h100 m-0">
-            <div class="col-md-4 py-2 card h100">
-                <div class="flex-1 relative h100">
-                    <div class="ab">
-                        <div class="rel">
-                            <cdk-tree [dataSource]="vehicles" [treeControl]="treeControl">
-                                <cdk-nested-tree-node *cdkTreeNodeDef="let node" class="tree-node">
-                                    <div class="f14w600">
-                                        <div class="text-start pt-3 px-2">
-                                            {{node.name}}
+        <div class="row h100 m-0 pt-2">
+            <div class="col-md-4 ">
+                <div class="card h100 p-2">
+                    @if(!loadSpinner){
+                    <div class="flex-1 relative h100">
+                        <div class="ab">
+                            <div class="rel">
+                                <cdk-tree [dataSource]="ruleSets" [treeControl]="treeControl">
+                                    <cdk-nested-tree-node *cdkTreeNodeDef="let node" class="tree-node">
+                                        <div class="f14w600">
+                                            <div class="text-start pt-3 px-2 hover" (click)="openRule(node)">
+                                                {{node.name}}
+                                            </div>
                                         </div>
-                                    </div>
-                                </cdk-nested-tree-node>
-                                <cdk-nested-tree-node *cdkTreeNodeDef="let node; when:hasChild" class="tree-node pt-2">
-                                    <div class="d-flex align-items-center color-pal tree-content">
-                                        <button mat-icon-button cdkTreeNodeToggle>
-                                            <ion-icon
-                                                name="{{treeControl.isExpanded(node) ? 'remove-circle-outline' : 'add-circle-outline'}}"></ion-icon>
-                                        </button>
-                                        <div class="w100">
-                                            {{node.name}}
+                                    </cdk-nested-tree-node>
+                                    <cdk-nested-tree-node *cdkTreeNodeDef="let node; when:hasChild" class="tree-node pt-2">
+                                        <div class="d-flex align-items-center color-pal tree-content">
+                                            <button mat-icon-button cdkTreeNodeToggle>
+                                                <ion-icon
+                                                    name="{{treeControl.isExpanded(node) ? 'remove-circle-outline' : 'add-circle-outline'}}"></ion-icon>
+                                            </button>
+                                            <div class="w100 hover" (click)="openRule(node)" >
+                                                {{node.name}}
+                                            </div>
+                                            <div class="end w100">
+                                                <button mat-icon-button  (click)="addRule(node)">
+                                                <ion-icon mat-icon-button name="add-outline"
+                                                   ></ion-icon>
+                                                    </button>
+                                            </div>
                                         </div>
-                                        <div class="end w100">
-                                            <button mat-icon-button  (click)="addRule(node)">
-                                            <ion-icon mat-icon-button name="add-outline"
-                                               ></ion-icon>
-                                                </button>
+                                        <div class="branch-container" [class.tree-invisible]="!treeControl.isExpanded(node)">
+                                            <ng-container cdkTreeNodeOutlet></ng-container>
                                         </div>
-                                    </div>
-                                    <div class="branch-container" [class.tree-invisible]="!treeControl.isExpanded(node)">
-                                        <ng-container cdkTreeNodeOutlet></ng-container>
-                                    </div>
-                                </cdk-nested-tree-node>
-                            </cdk-tree>
+                                    </cdk-nested-tree-node>
+                                </cdk-tree>
+                            </div>
                         </div>
                     </div>
+                }@else{
+                <div class="center-1 h100">
+                    <spinner></spinner>
+                </div>
+                }
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card h100 p-3">
+                        <div class="f16w600">Add Rule</div>
+                        <div class="border-bottom"></div>
+                        <div class="row w100 m-0 pt-2">
+                            <div class="col-md-6">
+                                <app-input-control label="Type" type="select" [items]="value" key="code" keyName="description"
+                                [(ngModel)]="itgRule.type" name="type" (onSelect)="getTypeProperty(itgRule.type)"></app-input-control>
+                            </div>
+                            <div class="col-md-6"></div>
+                            <div class="col-md-4">
+                                <app-input-control label="Name" [(ngModel)]="itgRule.name" name="name"/>
+                            </div>
+                            <div class="col-md-4">
+                                <app-input-control label="Status" type="select" [(ngModel)]="itgRule.status" name="status"/>
+                            </div>
+                            <div class="col-md-4">
+                                <app-input-control label="Description" [(ngModel)]="itgRule.description" name="description"/>
+                            </div>
+                            <div class="col-md-4">
+                                <app-input-control label="Application" [(ngModel)]="itgRule.application" name="application"/>
+                            </div>
+                            <div class="col-md-4">
+                                <app-input-control label="Module" [(ngModel)]="itgRule.module" name="module"/>
+                            </div>
+                            <div class="col-md-4">
+                                <app-input-control label="Enabled" [(ngModel)]="itgRule.enabled" name="enabled"/>
+                            </div>
+                            <div class="col-md-4">
+                                <app-input-control label="Version" [(ngModel)]="itgRule.version" name="version"/>
+                            </div>
+                            <div class="col-md-4">
+                                <app-input-control label="Last Modified By" [(ngModel)]="itgRule.lastModifiedBy" name="lastModifiedBy"/>
+                            </div>
+                            <div class="col-md-4">
+                                <app-input-control label="Last Modified Date" type="date" [(ngModel)]="itgRule.lastModifiedDate" name="lastModifiedDate" />
+                            </div>
+                            <div class="col-md-4">
+                                <app-input-control label="Version Owner" [(ngMode)]="itgRule.versionOwner" name="versionOwner"/>
+                            </div>
+                            @if(['AssignmentRule','ValidationRule'].includes(itgRule.type)){
+                                <div class="col-md-6">
+                                    <app-input-control label="Expression" [(ngModel)]="itgRule.expression" name="expression"
+                                    className="textarea" type="textarea"/>
+                                </div>
+                            } @else if (itgRule.type=== 'CSharpCodeRule') {
+                                <div class="col-md-4">
+                                    <app-input-control label="Name Space" [(ngModel)]="itgRule.nameSpace" name="nameSpace"/>
+                                </div>
+                                <div class="col-md-4">
+                                    <app-input-control label="Code" [(ngModel)]="itgRule.code" name="code"/>
+                                </div>
+                            } @else if (itgRule.type=== 'ValidationRule') {
+                                <div class="col-md-4">
+                                    <app-input-control label="Message" [(ngModel)]="itgRule.Message" name="Message"/>
+                                </div>
+                            } @else if (itgRule.type === 'ReferenceRule') {
+                                <div class="col-md-4">
+                                    <app-input-control label="Reference Rule Id" [(ngModel)]="itgRule.referenceRuleId" name="referenceRuleId"/>
+                                </div>
+                            }
+                            <div class="end gap-3">
+                                <button class="primary-button" mat-raised-button (click)="saveRuleSet()">
+                                    Save
+                                </button>
+                                <a class="secondary-button " mat-button>
+                                    Clear
+                                </a>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-}@else{
-<div class="center-1 h100">
-    <spinner></spinner>
-</div>
-}
+
+
 <ng-template #addRuleSet>
     <div class="v-flex h100 ">
         <div class="header-title border-bottom">
