@@ -1,5 +1,4 @@
-export class ITGRule {
-   
+export class ITGRule {   
     type = ''
     name= ''
     status= ''
@@ -7,8 +6,8 @@ export class ITGRule {
     description= ''
     application= ''
     module= ''
-    enabled= ''
-    ruleParserType= ''
+    enabled= false
+    ruleParserType= 0
     version= 0
     lastModifiedBy= ''
     lastModifiedDate= ''
