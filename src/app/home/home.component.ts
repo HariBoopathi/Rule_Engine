@@ -23,6 +23,46 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 
 })
 export class HomeComponent {
+  // types : AssignmentRule,ValidationRule,ReferenceRule,ITGRuleSet,CSharpCodeRule,IfElseRuleSet
+  // hasChild: ITGRuleSet, IfElseRuleSet
+  // Code: CSharpCodeRule
+  // Expression :AssignmentRule, ValidationRule,
+
+  // Clarifications Required from Navaladi:
+  // 1. How the Referrence Rule Works ? Autocomplete or select or search
+  // 2. Who will generate ID in each rule set? frontend or backend
+  // 3. For each ruleset what is user editable keys and what is system referrnce keys
+  // 4. Is expression and code should be in <textarea>
+  // 5. 
+
+
+  ruleSetArray = [];
+  ruleSetObj = {
+    type: "",
+    id: "",
+    name: "",
+    status: 0,
+    description: "",
+    module: "",
+    application: "",
+    enabled: false,
+    ruleParserType: 0,
+    version: 0,
+    lastModifiedBy: "",
+    lastModifiedDate: "",
+    referenceRulesLink: "",
+    versionOwner: "",
+    expression: "",
+    nameSpace: "",
+    code: "",
+    referenceDLLs: [],
+    rules: [],
+    successRules: [],
+    referenceRuleId: "",
+    message: "",
+    continueOnError: false,
+  };
+
   parentData: any
   dataList = {
     "type": "ITGRuleSet",
@@ -433,8 +473,8 @@ export class HomeComponent {
     "referenceRulesLink": null,
     "versionOwner": null
   }
-  // ruleSets = new ArrayDataSource<any>([])
-  public ruleSets = new ArrayDataSource<any>([this.dataList]);
+  ruleSets = new ArrayDataSource<any>([])
+  // public ruleSets = new ArrayDataSource<any>([this.dataList]);
 
 
   @ViewChild('addRuleSet', { static: false })
@@ -498,17 +538,14 @@ export class HomeComponent {
 
     this.itgRule = this.ruleMap[val] ? new this.ruleMap[val]() : new ITGRule();
     this.itgRuleRaw = this.ruleMap[val] ? new this.ruleMap[val]() : new ITGRule();
-    this.getData = this.ruleMap[val] ? new this.ruleMap[val]() : new ITGRule();
-    // this.parentData = this.ruleMap[val] ? new this.ruleMap[val]() : new ITGRule();
-
+    console.log(this.itgRule);
+    
   }
 
   addRule(val: any) {
-    debugger
-    this.ruleSets.connect().subscribe(data => {
-      this.parentData = data
-    });
+    debugger   
     this.getData = val
+    console.log(this.getData);
     this.itgRule = { ...this.itgRuleRaw }
   }
 
@@ -521,17 +558,19 @@ export class HomeComponent {
   saveRuleSet() {
     debugger
     this.loadSpinner = true;
-    if (this.getData.type === 'IFElseRule') {
-      this.getData.successRules.push(this.itgRule);
-    } else {
-      this.getData.rules.push(this.itgRule);
+    if(this.getData?.rules !== undefined || this.getData?.successRules !== undefined){
+      if (this.getData.type === 'IFElseRule') {
+        this.getData.successRules.push(this.itgRule);
+      } else {
+        this.getData.rules.push(this.itgRule);
+      }
     }
     setTimeout(() => {
-      this.parentData[0].rules.forEach((element: any) => {
-        if (element.id === this.getData.id) {
-          element = this.getData
-        }
-      });
+      // this.parentData[0].rules.forEach((element: any) => {
+      //   if (element.id === this.getData.id) {
+      //     element = this.getData
+      //   }
+      // });
       this.ruleSets.connect().subscribe(data => {
         this.ruleSets = new ArrayDataSource<any>(data);
       });
@@ -551,7 +590,7 @@ export class HomeComponent {
   bulkSave() {
     this.ruleSets.connect().subscribe(data => {
       if (data.length > 0) {
-        console.log('First Element:', data[0]); // Access first element
+        // console.log('First Element:', data[0]);
         this.itgRule = data[0]
       }
     });
