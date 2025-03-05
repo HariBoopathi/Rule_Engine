@@ -33,7 +33,8 @@ export class HomeComponent {
   // 2. Who will generate ID in each rule set? frontend or backend
   // 3. For each ruleset what is user editable keys and what is system referrnce keys
   // 4. Is expression and code should be in <textarea>
-  // 5. 
+  // 5. need method for search method
+
 
 
   ruleSetArray = [];
@@ -473,8 +474,9 @@ export class HomeComponent {
     "referenceRulesLink": null,
     "versionOwner": null
   }
-  ruleSets = new ArrayDataSource<any>([])
-  // public ruleSets = new ArrayDataSource<any>([this.dataList]);
+  // ruleSets = new ArrayDataSource<any>([])
+  public ruleSets = new ArrayDataSource<any>([this.dataList]);
+
 
 
   @ViewChild('addRuleSet', { static: false })
@@ -556,7 +558,6 @@ export class HomeComponent {
   loadSpinner = false
 
   saveRuleSet() {
-    debugger
     this.loadSpinner = true;
     if(this.getData?.rules !== undefined || this.getData?.successRules !== undefined){
       if (this.getData.type === 'IFElseRule') {
@@ -565,13 +566,11 @@ export class HomeComponent {
         this.getData.rules.push(this.itgRule);
       }
     }
+    console.log(this.getData, 'getdata');
+    
     setTimeout(() => {
-      // this.parentData[0].rules.forEach((element: any) => {
-      //   if (element.id === this.getData.id) {
-      //     element = this.getData
-      //   }
-      // });
       this.ruleSets.connect().subscribe(data => {
+        console.log(data, 'data');
         this.ruleSets = new ArrayDataSource<any>(data);
       });
       this.loadSpinner = false

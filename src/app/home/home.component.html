@@ -12,36 +12,37 @@
                                 <cdk-tree [dataSource]="ruleSets" [treeControl]="treeControl">
                                     <cdk-nested-tree-node *cdkTreeNodeDef="let node" class="tree-node pt-2">
                                         <div class="d-flex align-items-center" [ngClass]="{'color-pal':node.rules}">
-                                                <div class="w100   px-2 hover" (click)="openRule(node)" [ngClass]="{'f14w600 pt-2': !node.rules}">
-                                                    {{node.name}}
-                                                </div>
-                                                @if(node.rules){
-                                                    <div class="end ">
-                                                        <button mat-icon-button  (click)="addRule(node)">
-                                                        <ion-icon mat-icon-button name="add-outline"
-                                                           ></ion-icon>
-                                                            </button>
-                                                    </div>
-                                                }
+                                            <div class="w100   px-2 hover" (click)="openRule(node)"
+                                                [ngClass]="{'f14w600 pt-2': !node.rules}">
+                                                {{node.name}}
+                                            </div>
+                                            @if(node.rules){
+                                            <div class="end ">
+                                                <button mat-icon-button (click)="addRule(node)">
+                                                    <ion-icon mat-icon-button name="add-outline"></ion-icon>
+                                                </button>
+                                            </div>
+                                            }
                                         </div>
                                     </cdk-nested-tree-node>
-                                    <cdk-nested-tree-node *cdkTreeNodeDef="let node; when:hasChild" class="tree-node pt-2">
+                                    <cdk-nested-tree-node *cdkTreeNodeDef="let node; when:hasChild"
+                                        class="tree-node pt-2">
                                         <div class="d-flex align-items-center color-pal tree-content">
                                             <button mat-icon-button cdkTreeNodeToggle>
                                                 <ion-icon
                                                     name="{{treeControl.isExpanded(node) ? 'remove-circle-outline' : 'add-circle-outline'}}"></ion-icon>
                                             </button>
-                                            <div class="w100 hover" (click)="openRule(node)">                                                
+                                            <div class="w100 hover" (click)="openRule(node)">
                                                 {{node.name}}
                                             </div>
                                             <div class="end">
-                                                <button mat-icon-button  (click)="addRule(node)">
-                                                <ion-icon mat-icon-button name="add-outline"
-                                                   ></ion-icon>
-                                                    </button>
+                                                <button mat-icon-button (click)="addRule(node)">
+                                                    <ion-icon mat-icon-button name="add-outline"></ion-icon>
+                                                </button>
                                             </div>
                                         </div>
-                                        <div class="branch-container" [class.tree-invisible]="!treeControl.isExpanded(node)">
+                                        <div class="branch-container"
+                                            [class.tree-invisible]="!treeControl.isExpanded(node)">
                                             <ng-container cdkTreeNodeOutlet></ng-container>
                                         </div>
                                     </cdk-nested-tree-node>
@@ -49,11 +50,11 @@
                             </div>
                         </div>
                     </div>
-                }@else{
-                <div class="center-1 h100">
-                    <spinner></spinner>
-                </div>
-                }
+                    }@else{
+                    <div class="center-1 h100">
+                        <spinner></spinner>
+                    </div>
+                    }
                 </div>
             </div>
             <div class="col-md-8">
@@ -64,74 +65,82 @@
                             Save All
                         </button>
                     </div>
-                        <div class="border-bottom"></div>
-                        <div class="row w100 m-0 pt-2">
-                            <div class="col-md-6">
-                                <app-input-control label="Type" type="select" [items]="value" key="code" keyName="description"
-                                [(ngModel)]="itgRule.type" name="type" (onSelect)="getTypeProperty(itgRule.type)"></app-input-control>
-                            </div>
-                            <div class="col-md-6"></div>
-                            <div class="col-md-4">
-                                <app-input-control label="Name" [(ngModel)]="itgRule.name" name="name"/>
-                            </div>                         
-                            <div class="col-md-4">
-                                <app-input-control label="Description" [(ngModel)]="itgRule.description" name="description"/>
-                            </div>
-                            <div class="col-md-4">
-                                <app-input-control label="Application" [(ngModel)]="itgRule.application" name="application"/>
-                            </div>
-                            <div class="col-md-4">
-                                <app-input-control label="Module" [(ngModel)]="itgRule.module" name="module"/>
-                            </div>                          
-                            <div class="col-md-4">
-                                <app-input-control label="Version" [(ngModel)]="itgRule.version" name="version"/>
-                            </div>
-                            <div class="col-md-4">
-                                <app-input-control label="Last Modified By" [(ngModel)]="itgRule.lastModifiedBy" name="lastModifiedBy"/>
-                            </div>
-                            <div class="col-md-4">
-                                <app-input-control label="Last Modified Date" type="date" [(ngModel)]="itgRule.lastModifiedDate" name="lastModifiedDate" />
-                            </div>
-                            <div class="col-md-4">
-                                <app-input-control label="Version Owner" [(ngMode)]="itgRule.versionOwner" name="versionOwner"/>
-                            </div>
-                            <div class="col-md-4">
-                                <label>Enabled</label>
-                                <mat-checkbox [checked]="itgRule.enabled" (change)="itgRule.enabled = $event.checked"></mat-checkbox>
-                            </div>
-                            <code contenteditable="true" style="width:100%; height: 200px; border:1px solid #ddd; background-color: #ccc;"></code>
-                            @if(['AssignmentRule','ValidationRule'].includes(itgRule.type)){
-                                <div class="col-md-6">
-                                    <app-input-control label="Expression" [(ngModel)]="itgRule.expression" name="expression"
-                                    className="textarea" type="textarea"/>
-                                </div>
-                            } @else if (itgRule.type=== 'CSharpCodeRule') {
-                                <div class="col-md-4">
-                                    <app-input-control label="Name Space" [(ngModel)]="itgRule.nameSpace" name="nameSpace"/>
-                                </div>
-                                <div class="col-md-4">
-                                    <app-input-control label="Code" [(ngModel)]="itgRule.code" name="code"/>
-                                    
-                                </div>
-                            } @else if (itgRule.type=== 'ValidationRule') {
-                                <div class="col-md-4">
-                                    <app-input-control label="Message" [(ngModel)]="itgRule.Message" name="Message"/>
-                                </div>
-                            } @else if (itgRule.type === 'ReferenceRule') {
-                                <div class="col-md-4">
-                                    <app-input-control label="Reference Rule Id" [(ngModel)]="itgRule.referenceRuleId" name="referenceRuleId"
-                                    [search]="true"/>
-                                </div>
-                            }
-                            <div class="end gap-3">
-                                <button class="primary-button" mat-raised-button (click)="saveRuleSet()">
-                                    Save
-                                </button>
-                                <a class="secondary-button " mat-button (click)="clearRule()">
-                                    Clear
-                                </a>
-                            </div>
+                    <div class="border-bottom"></div>
+                    <div class="row w100 m-0 pt-2">
+                        <div class="col-md-6">
+                            <app-input-control label="Type" type="select" [items]="value" key="code"
+                                keyName="description" [(ngModel)]="itgRule.type" name="type"
+                                (onSelect)="getTypeProperty(itgRule.type)"></app-input-control>
                         </div>
+                        <div class="col-md-6"></div>
+                        <div class="col-md-4">
+                            <app-input-control label="Name" [(ngModel)]="itgRule.name" name="name" />
+                        </div>
+                        <div class="col-md-4">
+                            <app-input-control label="Description" [(ngModel)]="itgRule.description"
+                                name="description" />
+                        </div>
+                        <div class="col-md-4">
+                            <app-input-control label="Application" [(ngModel)]="itgRule.application"
+                                name="application" />
+                        </div>
+                        <div class="col-md-4">
+                            <app-input-control label="Module" [(ngModel)]="itgRule.module" name="module" />
+                        </div>
+                        <div class="col-md-4">
+                            <app-input-control label="Version" [(ngModel)]="itgRule.version" name="version" />
+                        </div>
+                        <div class="col-md-4">
+                            <app-input-control label="Last Modified By" [(ngModel)]="itgRule.lastModifiedBy"
+                                name="lastModifiedBy" />
+                        </div>
+                        <div class="col-md-4">
+                            <app-input-control label="Last Modified Date" type="date"
+                                [(ngModel)]="itgRule.lastModifiedDate" name="lastModifiedDate" />
+                        </div>
+                        <div class="col-md-4">
+                            <app-input-control label="Version Owner" [(ngMode)]="itgRule.versionOwner"
+                                name="versionOwner" />
+                        </div>
+                        <div class="col-md-4">
+                            <label>Enabled</label>
+                            <mat-checkbox [checked]="itgRule.enabled"
+                                (change)="itgRule.enabled = $event.checked"></mat-checkbox>
+                        </div>
+                        <code contenteditable="true"
+                            style="width:100%; height: 200px; border:1px solid #ddd; background-color: #ccc;"></code>
+                        @if(['AssignmentRule','ValidationRule'].includes(itgRule.type)){
+                        <div class="col-md-6">
+                            <app-input-control label="Expression" [(ngModel)]="itgRule.expression" name="expression"
+                                className="textarea" type="textarea" />
+                        </div>
+                        } @else if (itgRule.type=== 'CSharpCodeRule') {
+                        <div class="col-md-4">
+                            <app-input-control label="Name Space" [(ngModel)]="itgRule.nameSpace" name="nameSpace" />
+                        </div>
+                        <div class="col-md-4">
+                            <app-input-control label="Code" [(ngModel)]="itgRule.code" name="code" />
+
+                        </div>
+                        } @else if (itgRule.type=== 'ValidationRule') {
+                        <div class="col-md-4">
+                            <app-input-control label="Message" [(ngModel)]="itgRule.Message" name="Message" />
+                        </div>
+                        } @else if (itgRule.type === 'ReferenceRule') {
+                        <div class="col-md-4">
+                            <app-input-control label="Reference Rule Id" [(ngModel)]="itgRule.referenceRuleId"
+                                name="referenceRuleId" [search]="true" />
+                        </div>
+                        }
+                        <div class="end gap-3">
+                            <button class="primary-button" mat-raised-button (click)="saveRuleSet()">
+                                Save
+                            </button>
+                            <a class="secondary-button" mat-button (click)="clearRule()">
+                                Clear
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
